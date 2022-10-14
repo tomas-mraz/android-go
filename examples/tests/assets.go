@@ -5,7 +5,7 @@ import (
 	"runtime"
 	"sync"
 
-	"github.com/xlab/android-go/app"
+	"github.com/tomas-mraz/android-go/app"
 )
 
 const assetSize = 1 << 20

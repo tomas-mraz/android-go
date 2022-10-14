@@ -11,7 +11,7 @@ import (
 	"time"
 	"unsafe"
 
-	"github.com/xlab/android-go/android"
+	"github.com/tomas-mraz/android-go/android"
 )
 
 type LifecycleEvent struct {
