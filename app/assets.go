@@ -9,7 +9,7 @@ import (
 	"sync"
 	"unsafe"
 
-	"github.com/xlab/android-go/android"
+	"github.com/tomas-mraz/android-go/android"
 )
 
 // AssetReader represents an asset opened for reading

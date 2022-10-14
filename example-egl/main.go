@@ -5,10 +5,10 @@ import (
 	"runtime"
 	"time"
 
-	"github.com/xlab/android-go/android"
-	"github.com/xlab/android-go/app"
-	"github.com/xlab/android-go/egl"
-	gl "github.com/xlab/android-go/gles"
+	"github.com/tomas-mraz/android-go/android"
+	"github.com/tomas-mraz/android-go/app"
+	"github.com/tomas-mraz/android-go/egl"
+	gl "github.com/tomas-mraz/android-go/gles"
 )
 
 func init() {

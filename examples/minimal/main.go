@@ -4,7 +4,7 @@ import (
 	"log"
 	"runtime"
 
-	"github.com/xlab/android-go/app"
+	"github.com/tomas-mraz/android-go/app"
 )
 
 func init() {
