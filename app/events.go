@@ -101,7 +101,7 @@ func onResume(activity *C.ANativeActivity) {
 	defaultApp.lifecycleEvents <- event
 }
 
-type SaveStateFunc func(activity *android.NativeActivity, size *uint32) unsafe.Pointer
+type SaveStateFunc func(activity *android.NativeActivity, size *uint64) unsafe.Pointer
 
 //export onSaveInstanceState
 func onSaveInstanceState(activity *C.ANativeActivity, outSize *C.size_t) unsafe.Pointer {
@@ -113,7 +113,7 @@ func onSaveInstanceState(activity *C.ANativeActivity, outSize *C.size_t) unsafe.
 		return nil
 	}
 	activityRef := android.NewNativeActivityRef(unsafe.Pointer(activity))
-	result := fn(activityRef, (*uint32)(outSize))
+	result := fn(activityRef, (*uint64)(outSize))
 	return result
 }
 
