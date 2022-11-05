@@ -1,3 +1,3 @@
-module github.com/xlab/android-go
+module github.com/tomas-mraz/android-go
 
 go 1.16
