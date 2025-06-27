@@ -590,7 +590,7 @@ func LooperPollAll(timeoutMillis int32, outFd *int32, outEvents *int32, outData 
 	coutFd, _ := (*C.int)(unsafe.Pointer(outFd)), cgoAllocsUnknown
 	coutEvents, _ := (*C.int)(unsafe.Pointer(outEvents)), cgoAllocsUnknown
 	coutData, _ := (*unsafe.Pointer)(unsafe.Pointer((*sliceHeader)(unsafe.Pointer(&outData)).Data)), cgoAllocsUnknown
-	__ret := C.ALooper_pollAll(ctimeoutMillis, coutFd, coutEvents, coutData)
+	__ret := C.ALooper_pollOnce(ctimeoutMillis, coutFd, coutEvents, coutData)
 	__v := (int32)(__ret)
 	return __v
 }
