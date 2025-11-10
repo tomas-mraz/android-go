@@ -122,3 +122,59 @@ func (a *NativeActivity) KeyEventGetUnicodeChar(action, keyCode, metaState int32
 	})
 	return result, err
 }
+
+// GetDataDirPath returns the full path to the directory where the application data is stored (sand-box).
+func (a *NativeActivity) GetDataDirPath() (string, error) {
+	var path string
+	var err error
+
+	// java native interface call
+	callErr := a.JNICall(func(env *JNIEnv, activity Jobject, activityClass, contextClass *Jclass) error {
+
+		classGetFDSig := JNITypeSpec{
+			Signature: "Ljava/io/File;",
+		}
+		getFilesDirMethod := JNIEnvGetMethodID(env, contextClass, "getFilesDir"+"\x00", JNIMethodSig(classGetFDSig))
+		if getFilesDirMethod == nil {
+			return errors.New("failed to find getFilesDir method")
+		}
+
+		fileObject := JNIEnvCallObjectMethod(env, activity, getFilesDirMethod, nil)
+		if fileObject == nil {
+			return errors.New("getFilesDir() returned nil")
+		}
+		defer JNIEnvDeleteLocalRef(env, fileObject) // clean
+
+		fileClass := JNIEnvFindClass(env, "java/io/File"+"\x00")
+		if fileClass == nil {
+			return errors.New("failed to find java.io.File class")
+		}
+
+		classGetAPSig := JNITypeSpec{
+			Signature: "Ljava/lang/String;",
+		}
+		getAbsolutePathMethod := JNIEnvGetMethodID(env, fileClass, "getAbsolutePath"+"\x00", JNIMethodSig(classGetAPSig))
+		if getAbsolutePathMethod == nil {
+			return errors.New("failed to find getAbsolutePath method")
+		}
+
+		// call file.getAbsolutePath()
+		jPathString := JNIEnvCallObjectMethod(env, fileObject, getAbsolutePathMethod, nil)
+		if jPathString == nil {
+			return errors.New("getAbsolutePath() returned nil")
+		}
+		defer JNIEnvDeleteLocalRef(env, jPathString) // clean
+
+		var isCopy byte = 0
+		path = JNIEnvGetStringUTFChars(env, (*Jstring)(jPathString), &isCopy)
+
+		return nil
+	})
+
+	// error check
+	if callErr != nil {
+		err = callErr
+	}
+
+	return path, err
+}
