@@ -152,6 +152,7 @@ type NativeWindowEventKind string
 
 const (
 	NativeWindowCreated      NativeWindowEventKind = "nativeWindowCreated"
+	NativeWindowResized      NativeWindowEventKind = "nativeWindowResized"
 	NativeWindowRedrawNeeded NativeWindowEventKind = "nativeWindowRedrawNeeded"
 	NativeWindowDestroyed    NativeWindowEventKind = "nativeWindowDestroyed"
 )
@@ -168,6 +169,27 @@ func onNativeWindowCreated(activity *C.ANativeActivity, window *C.ANativeWindow)
 		Activity: android.NewNativeActivityRef(unsafe.Pointer(activity)),
 		Window:   (*android.NativeWindow)(window),
 		Kind:     NativeWindowCreated,
+	}
+	select {
+	case out <- event:
+		// dispatched
+	case <-time.After(defaultApp.maxDispatchTime):
+		// timed out
+	}
+}
+
+//export onNativeWindowResized
+func onNativeWindowResized(activity *C.ANativeActivity, window *C.ANativeWindow) {
+	defaultApp.initWG.Wait()
+
+	out := defaultApp.getNativeWindowEventsOut()
+	if out == nil {
+		return
+	}
+	event := NativeWindowEvent{
+		Activity: android.NewNativeActivityRef(unsafe.Pointer(activity)),
+		Window:   (*android.NativeWindow)(window),
+		Kind:     NativeWindowResized,
 	}
 	select {
 	case out <- event:
