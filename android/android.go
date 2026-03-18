@@ -1534,21 +1534,6 @@ func LooperPollOnce(timeoutMillis int32, outFd *int32, outEvents *int32, outData
 	return __v
 }
 
-// LooperPollAll function as declared in looper.h:205
-func LooperPollAll(timeoutMillis int32, outFd *int32, outEvents *int32, outData *unsafe.Pointer) int32 {
-	ctimeoutMillis, ctimeoutMillisAllocMap := (C.int)(timeoutMillis), cgoAllocsUnknown
-	coutFd, coutFdAllocMap := (*C.int)(unsafe.Pointer(outFd)), cgoAllocsUnknown
-	coutEvents, coutEventsAllocMap := (*C.int)(unsafe.Pointer(outEvents)), cgoAllocsUnknown
-	coutData, coutDataAllocMap := outData, cgoAllocsUnknown
-	__ret := C.ALooper_pollAll(ctimeoutMillis, coutFd, coutEvents, coutData)
-	runtime.KeepAlive(coutDataAllocMap)
-	runtime.KeepAlive(coutEventsAllocMap)
-	runtime.KeepAlive(coutFdAllocMap)
-	runtime.KeepAlive(ctimeoutMillisAllocMap)
-	__v := (int32)(__ret)
-	return __v
-}
-
 // LooperWake function as declared in looper.h:213
 func LooperWake(looper *Looper) {
 	clooper, clooperAllocMap := (*C.ALooper)(unsafe.Pointer(looper)), cgoAllocsUnknown

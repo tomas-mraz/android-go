@@ -72,7 +72,7 @@ func (s *SensorMan) loop() {
 			if s.sleep {
 				delay = 250
 			}
-			if ident := android.LooperPollAll(delay, nil, nil, nil); ident != queueIdent {
+				if ident := android.LooperPollOnce(delay, nil, nil, nil); ident != queueIdent {
 				switch ident {
 				case android.LooperPollTimeout:
 				default:

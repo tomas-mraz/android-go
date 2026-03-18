@@ -101,6 +101,7 @@ TRANSLATOR:
       - {action: replace, from: "(?i)^Android"}
       - {action: replace, from: ^A}
     function:
+      - {action: ignore, from: ^ALooper_pollAll$}
       - {action: accept, from: ^__android_log_write}
       - {action: replace, from: ^__android}
       - {action: accept, from: ^JNI}

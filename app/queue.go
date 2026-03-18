@@ -41,7 +41,7 @@ func HandleInputQueues(queueChan <-chan *android.InputQueue, onProcessed func(),
 
 	var current *android.InputQueue
 	for {
-		if android.LooperPollAll(-1, nil, nil, nil) == android.LooperPollWake {
+			if android.LooperPollOnce(-1, nil, nil, nil) == android.LooperPollWake {
 			select {
 			default:
 			case p := <-pending:
