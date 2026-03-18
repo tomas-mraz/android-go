@@ -1,4 +1,11 @@
 CPP = $(shell ndk-which cpp)
+#ANDROID_HOME must be set
+#ANDROID_NDK_HOME must be set
+ANDROID_API ?= 33
+ANDROID_TOOLCHAIN_DIR ?= $(ANDROID_NDK_HOME)/toolchains/llvm/prebuilt/linux-x86_64/bin
+ANDROID_CC ?= $(ANDROID_TOOLCHAIN_DIR)/aarch64-linux-android$(ANDROID_API)-clang
+ANDROID_CXX ?= $(ANDROID_TOOLCHAIN_DIR)/aarch64-linux-android$(ANDROID_API)-clang++
+ANDROID_BUILD_ENV = CC="$(ANDROID_CC)" CXX="$(ANDROID_CXX)" GOOS=android GOARCH=arm64 CGO_ENABLED=1
 
 all: gen-android gen-egl gen-gles gen-gles2 gen-gles3 gen-gles31
 
@@ -50,11 +57,16 @@ clean-gles31:
 	rm -f gles31/doc.go gles31/types.go gles31/const.go
 	rm -f gles31/gles31.go
 
-test:
-	cd android && go build
+check-android-build-env:
+	test -n "$(ANDROID_NDK_HOME)"
+	test -x "$(ANDROID_CC)"
+	test -x "$(ANDROID_CXX)"
 
-test-egl:
-	cd egl && go build
+test: check-android-build-env
+	cd android && $(ANDROID_BUILD_ENV) go build
+
+test-egl: check-android-build-env
+	cd egl && $(ANDROID_BUILD_ENV) go build
 
 test-gles:
 	cd gles && go build
