@@ -30,7 +30,7 @@ PARSER:
   Arch: arm
   Defines:
     __STDC_HOSTED__: null
-    __ANDROID_API__: 29
+    __ANDROID_API__: 33
     __BIONIC_VERSIONER: 1
 
   IncludePaths:
@@ -112,6 +112,7 @@ TRANSLATOR:
     type:
       - {action: accept, from: ^J}
       - {action: accept, from: ^j}
+      - {action: accept, from: ^__android_log_message$}
       - {action: replace, from: "_t$"}
     const:
       - {action: accept, from: ^JNI}
