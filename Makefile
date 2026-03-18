@@ -6,19 +6,19 @@ gen-android:
 	CPP="$(CPP)" c-for-go -out=. -ccdefs=true android.yml
 
 gen-egl:
-	c-for-go egl.yml
+	c-for-go -out=. egl.yml
 
 gen-gles:
-	c-for-go gles.yml
+	c-for-go -out=. gles.yml
 
 gen-gles2:
-	c-for-go gles2.yml
+	c-for-go -out=. gles2.yml
 
 gen-gles3:
-	c-for-go gles3.yml
+	c-for-go -out=. gles3.yml
 
 gen-gles31:
-	c-for-go gles31.yml
+	c-for-go -out=. gles31.yml
 
 clean: clean-egl clean-gles clean-gles2 clean-gles3 clean-gles31
 	rm -f android/cgo_helpers.go android/cgo_helpers.h android/cgo_helpers.c

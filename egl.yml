@@ -13,11 +13,14 @@ PARSER:
   SourcesPaths:
     - EGL/egl.h
   IncludePaths:
-    # NOTE: Replace these paths if you want to re-generate.
-    - /Users/xlab/Library/Android/sdk/ndk-bundle/platforms/android-23/arch-arm/usr/include
-    - /Users/xlab/Library/Android/sdk/ndk-bundle/platforms/android-23/arch-arm/usr/include/linux
+    - /home/tomas/Android/Sdk/ndk/26.3.11579264/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/include
+  SysIncludePaths:
+    - /home/tomas/Android/Sdk/ndk/26.3.11579264/toolchains/llvm/prebuilt/linux-x86_64/lib/clang/17/include
+    - /home/tomas/Android/Sdk/ndk/26.3.11579264/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/include
   Defines:
     __ANDROID__: 1
+    __ANDROID_API__: 29
+    __BIONIC_VERSIONER: 1
     EGLAPIENTRYP: {}
 
 TRANSLATOR: 
@@ -50,6 +53,7 @@ TRANSLATOR:
     type:
       - {action: replace, from: "_t$"}
     const:
+      - {action: ignore, from: EGLAPIENTRYP$}
       - {action: ignore, from: EGL_NO_DISPLAY}
       - {action: ignore, from: EGL_NO_SURFACE}
       - {action: ignore, from: EGL_NO_CONTEXT}
@@ -62,5 +66,3 @@ TRANSLATOR:
               to: "https://www.khronos.org/registry/egl/sdk/docs/man/html/$name.xhtml"}
       - {transform: export}
       - {load: snakecase}
-
-
