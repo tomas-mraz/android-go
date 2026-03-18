@@ -13,11 +13,11 @@ import (
 // goroutine, i.e. that's locked using runtime.LockOSThread(). The main android-go
 // goroutine is a such goroutine.
 func (a *NativeActivity) JNICall(fn func(env *JNIEnv,
-	activity Jobject, activityClass, contextClass *Jclass) error) (err error) {
+	activity Jobject, activityClass, contextClass Jclass) error) (err error) {
 	a.Deref()
 	if ret := JNIAttachCurrentThread(a.Vm, &a.Env, &JavaVMAttachArgs{
 		Version: JNIVersion16,
-		Name:    s("NativeThread"),
+		Name:    []byte(s("NativeThread")),
 	}); ret == JNIErr {
 		return errors.New("JNICall: JNIAttachCurrentThread failed")
 	}

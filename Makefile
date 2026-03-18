@@ -3,7 +3,7 @@ CPP = $(shell ndk-which cpp)
 all: gen-android gen-egl gen-gles gen-gles2 gen-gles3 gen-gles31
 
 gen-android:
-	CPP="$(CPP)" c-for-go -ccdefs=true android.yml
+	CPP="$(CPP)" c-for-go -out=. -ccdefs=true android.yml
 
 gen-egl:
 	c-for-go egl.yml
