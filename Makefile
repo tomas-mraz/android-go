@@ -1,4 +1,4 @@
-CPP = $(shell ndk-which cpp)
+CPP := $(shell which cpp 2>/dev/null)
 #ANDROID_HOME must be set
 #ANDROID_NDK_HOME must be set
 ANDROID_API ?= 33
@@ -10,6 +10,8 @@ ANDROID_BUILD_ENV = CC="$(ANDROID_CC)" CXX="$(ANDROID_CXX)" GOOS=android GOARCH=
 all: gen-android gen-egl gen-gles gen-gles2 gen-gles3 gen-gles31
 
 gen-android:
+	test -n "$(CPP)"
+	test -x "$(CPP)"
 	CPP="$(CPP)" c-for-go -out=. -ccdefs=true android.yml
 
 gen-egl:
