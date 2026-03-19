@@ -110,7 +110,7 @@ TRANSLATOR:
       - {action: ignore, from: JNI_OnLoad}
       - {action: ignore, from: JNI_OnUnload}
       - {action: ignore, from: ANativeActivity_onCreate}
-      - {action: ignore, from: ASensorManager_getSensorList}
+      - {action: ignore, from: ASensorManager_getInstance$}
     type:
       - {action: accept, from: ^J}
       - {action: accept, from: ^j}
