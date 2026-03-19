@@ -8,6 +8,8 @@ flexibility while keeping things simple and easy to use. The approach and tools
 are different from [gomobile](https://github.com/golang/mobile), please
 distinguish them apart.
 
+The current base Android API version for generation in this project is Android 13 (Tiramisu), API level 33.
+
 The project was one of [the best Go Newsletter items of 2016](http://golangweekly.com/issues/140). In this final issue of the year, they look back at the most popular Go news and links of 2016. 🌟
 
 ❗️Important! Please see [cmd/android-project](/cmd/android-project) utility that replaces the original `android` from SDK that has been stripped in latest SDK releases. All example Makefiles were updated, I advise you to do the same rather than stick to old SDK versions.
