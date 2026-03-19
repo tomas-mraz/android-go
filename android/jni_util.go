@@ -165,8 +165,7 @@ func (a *NativeActivity) GetDataDirPath() (string, error) {
 		}
 		defer JNIEnvDeleteLocalRef(env, jPathString) // clean
 
-		var isCopy byte = 0
-		path = JNIEnvGetStringUTFChars(env, Jstring(jPathString), &isCopy)
+		path = JNIEnvGetStringUTFChars(env, Jstring(jPathString))
 
 		return nil
 	})

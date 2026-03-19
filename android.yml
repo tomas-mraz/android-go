@@ -105,6 +105,8 @@ TRANSLATOR:
       - {action: accept, from: ^__android_log_write}
       - {action: replace, from: ^__android}
       - {action: accept, from: ^JNI}
+      - {action: ignore, from: ^JNIEnv_GetStringUTFChars$} # Handwritten in android/jni_string.go to copy the returned UTF chars into Go-managed memory before releasing the JNI buffer.
+      - {action: ignore, from: ^JNIEnv_ReleaseStringUTFChars$} # already included in GetStringUTFChars
       - {action: ignore, from: JNI_OnLoad}
       - {action: ignore, from: JNI_OnUnload}
       - {action: ignore, from: ANativeActivity_onCreate}

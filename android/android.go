@@ -3681,30 +3681,6 @@ func JNIEnvGetStringUTFLength(env *JNIEnv, str Jstring) Jsize {
 	return __v
 }
 
-// JNIEnvGetStringUTFChars function as declared in jni_call.h:136
-func JNIEnvGetStringUTFChars(env *JNIEnv, str Jstring, isCopy *byte) string {
-	cenv, cenvAllocMap := (*C.JNIEnv)(unsafe.Pointer(env)), cgoAllocsUnknown
-	cstr, cstrAllocMap := (C.jstring)(unsafe.Pointer(str)), cgoAllocsUnknown
-	cisCopy, cisCopyAllocMap := (*C.jboolean)(unsafe.Pointer(isCopy)), cgoAllocsUnknown
-	__ret := C.JNIEnv_GetStringUTFChars(cenv, cstr, cisCopy)
-	runtime.KeepAlive(cisCopyAllocMap)
-	runtime.KeepAlive(cstrAllocMap)
-	runtime.KeepAlive(cenvAllocMap)
-	__v := packPCharString(__ret)
-	return __v
-}
-
-// JNIEnvReleaseStringUTFChars function as declared in jni_call.h:137
-func JNIEnvReleaseStringUTFChars(env *JNIEnv, str Jstring, utf string) {
-	cenv, cenvAllocMap := (*C.JNIEnv)(unsafe.Pointer(env)), cgoAllocsUnknown
-	cstr, cstrAllocMap := (C.jstring)(unsafe.Pointer(str)), cgoAllocsUnknown
-	cutf, cutfAllocMap := unpackPCharString(utf)
-	C.JNIEnv_ReleaseStringUTFChars(cenv, cstr, cutf)
-	runtime.KeepAlive(cutfAllocMap)
-	runtime.KeepAlive(cstrAllocMap)
-	runtime.KeepAlive(cenvAllocMap)
-}
-
 // JNIEnvGetArrayLength function as declared in jni_call.h:138
 func JNIEnvGetArrayLength(env *JNIEnv, arr Jarray) Jsize {
 	cenv, cenvAllocMap := (*C.JNIEnv)(unsafe.Pointer(env)), cgoAllocsUnknown
