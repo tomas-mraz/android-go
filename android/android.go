@@ -511,15 +511,6 @@ func ConfigurationGetScreenRound(config *Configuration) int32 {
 	return __v
 }
 
-// ConfigurationSetScreenRound function as declared in configuration.h:658
-func ConfigurationSetScreenRound(config *Configuration, screenRound int32) {
-	cconfig, cconfigAllocMap := (*C.AConfiguration)(unsafe.Pointer(config)), cgoAllocsUnknown
-	cscreenRound, cscreenRoundAllocMap := (C.int32_t)(screenRound), cgoAllocsUnknown
-	C.AConfiguration_setScreenRound(cconfig, cscreenRound)
-	runtime.KeepAlive(cscreenRoundAllocMap)
-	runtime.KeepAlive(cconfigAllocMap)
-}
-
 // ConfigurationGetUiModeType function as declared in configuration.h:663
 func ConfigurationGetUiModeType(config *Configuration) int32 {
 	cconfig, cconfigAllocMap := (*C.AConfiguration)(unsafe.Pointer(config)), cgoAllocsUnknown
@@ -1694,72 +1685,6 @@ func NativeWindowUnlockAndPost(window *NativeWindow) int32 {
 	return __v
 }
 
-// NativeWindowSetBuffersTransform function as declared in native_window.h:199
-func NativeWindowSetBuffersTransform(window *NativeWindow, transform int32) int32 {
-	cwindow, cwindowAllocMap := (*C.ANativeWindow)(unsafe.Pointer(window)), cgoAllocsUnknown
-	ctransform, ctransformAllocMap := (C.int32_t)(transform), cgoAllocsUnknown
-	__ret := C.ANativeWindow_setBuffersTransform(cwindow, ctransform)
-	runtime.KeepAlive(ctransformAllocMap)
-	runtime.KeepAlive(cwindowAllocMap)
-	__v := (int32)(__ret)
-	return __v
-}
-
-// NativeWindowSetBuffersDataSpace function as declared in native_window.h:218
-func NativeWindowSetBuffersDataSpace(window *NativeWindow, dataSpace int32) int32 {
-	cwindow, cwindowAllocMap := (*C.ANativeWindow)(unsafe.Pointer(window)), cgoAllocsUnknown
-	cdataSpace, cdataSpaceAllocMap := (C.int32_t)(dataSpace), cgoAllocsUnknown
-	__ret := C.ANativeWindow_setBuffersDataSpace(cwindow, cdataSpace)
-	runtime.KeepAlive(cdataSpaceAllocMap)
-	runtime.KeepAlive(cwindowAllocMap)
-	__v := (int32)(__ret)
-	return __v
-}
-
-// NativeWindowGetBuffersDataSpace function as declared in native_window.h:228
-func NativeWindowGetBuffersDataSpace(window *NativeWindow) int32 {
-	cwindow, cwindowAllocMap := (*C.ANativeWindow)(unsafe.Pointer(window)), cgoAllocsUnknown
-	__ret := C.ANativeWindow_getBuffersDataSpace(cwindow)
-	runtime.KeepAlive(cwindowAllocMap)
-	__v := (int32)(__ret)
-	return __v
-}
-
-// NativeWindowSetFrameRate function as declared in native_window.h:260
-func NativeWindowSetFrameRate(window *NativeWindow, frameRate float32, compatibility int8) int32 {
-	cwindow, cwindowAllocMap := (*C.ANativeWindow)(unsafe.Pointer(window)), cgoAllocsUnknown
-	cframeRate, cframeRateAllocMap := (C.float)(frameRate), cgoAllocsUnknown
-	ccompatibility, ccompatibilityAllocMap := (C.int8_t)(compatibility), cgoAllocsUnknown
-	__ret := C.ANativeWindow_setFrameRate(cwindow, cframeRate, ccompatibility)
-	runtime.KeepAlive(ccompatibilityAllocMap)
-	runtime.KeepAlive(cframeRateAllocMap)
-	runtime.KeepAlive(cwindowAllocMap)
-	__v := (int32)(__ret)
-	return __v
-}
-
-// NativeWindowTryAllocateBuffers function as declared in native_window.h:272
-func NativeWindowTryAllocateBuffers(window *NativeWindow) {
-	cwindow, cwindowAllocMap := (*C.ANativeWindow)(unsafe.Pointer(window)), cgoAllocsUnknown
-	C.ANativeWindow_tryAllocateBuffers(cwindow)
-	runtime.KeepAlive(cwindowAllocMap)
-}
-
-// NativeWindowSetFrameRateWithChangeStrategy function as declared in native_window.h:331
-func NativeWindowSetFrameRateWithChangeStrategy(window *NativeWindow, frameRate float32, compatibility int8, changeFrameRateStrategy int8) int32 {
-	cwindow, cwindowAllocMap := (*C.ANativeWindow)(unsafe.Pointer(window)), cgoAllocsUnknown
-	cframeRate, cframeRateAllocMap := (C.float)(frameRate), cgoAllocsUnknown
-	ccompatibility, ccompatibilityAllocMap := (C.int8_t)(compatibility), cgoAllocsUnknown
-	cchangeFrameRateStrategy, cchangeFrameRateStrategyAllocMap := (C.int8_t)(changeFrameRateStrategy), cgoAllocsUnknown
-	__ret := C.ANativeWindow_setFrameRateWithChangeStrategy(cwindow, cframeRate, ccompatibility, cchangeFrameRateStrategy)
-	runtime.KeepAlive(cchangeFrameRateStrategyAllocMap)
-	runtime.KeepAlive(ccompatibilityAllocMap)
-	runtime.KeepAlive(cframeRateAllocMap)
-	runtime.KeepAlive(cwindowAllocMap)
-	__v := (int32)(__ret)
-	return __v
-}
-
 // NativeWindowFromSurface function as declared in native_window_jni.h:45
 func NativeWindowFromSurface(env *JNIEnv, surface Jobject) *NativeWindow {
 	cenv, cenvAllocMap := (*C.JNIEnv)(unsafe.Pointer(env)), cgoAllocsUnknown
@@ -2223,41 +2148,6 @@ func StorageManagerGetMountedObbPath(mgr *StorageManager, filename string) strin
 	runtime.KeepAlive(cfilenameAllocMap)
 	runtime.KeepAlive(cmgrAllocMap)
 	__v := packPCharString(__ret)
-	return __v
-}
-
-// JNIGetDefaultJavaVMInitArgs function as declared in jni.h:1100
-func JNIGetDefaultJavaVMInitArgs(arg0 unsafe.Pointer) Jint {
-	carg0, carg0AllocMap := arg0, cgoAllocsUnknown
-	__ret := C.JNI_GetDefaultJavaVMInitArgs(carg0)
-	runtime.KeepAlive(carg0AllocMap)
-	__v := (Jint)(__ret)
-	return __v
-}
-
-// JNICreateJavaVM function as declared in jni.h:1101
-func JNICreateJavaVM(arg0 **JavaVM, arg1 **JNIEnv, arg2 unsafe.Pointer) Jint {
-	carg0, carg0AllocMap := (**C.JavaVM)(unsafe.Pointer(arg0)), cgoAllocsUnknown
-	carg1, carg1AllocMap := (**C.JNIEnv)(unsafe.Pointer(arg1)), cgoAllocsUnknown
-	carg2, carg2AllocMap := arg2, cgoAllocsUnknown
-	__ret := C.JNI_CreateJavaVM(carg0, carg1, carg2)
-	runtime.KeepAlive(carg2AllocMap)
-	runtime.KeepAlive(carg1AllocMap)
-	runtime.KeepAlive(carg0AllocMap)
-	__v := (Jint)(__ret)
-	return __v
-}
-
-// JNIGetCreatedJavaVMs function as declared in jni.h:1102
-func JNIGetCreatedJavaVMs(arg0 **JavaVM, arg1 int32, arg2 *int32) Jint {
-	carg0, carg0AllocMap := (**C.JavaVM)(unsafe.Pointer(arg0)), cgoAllocsUnknown
-	carg1, carg1AllocMap := (C.jsize)(arg1), cgoAllocsUnknown
-	carg2, carg2AllocMap := (*C.jsize)(unsafe.Pointer(arg2)), cgoAllocsUnknown
-	__ret := C.JNI_GetCreatedJavaVMs(carg0, carg1, carg2)
-	runtime.KeepAlive(carg2AllocMap)
-	runtime.KeepAlive(carg1AllocMap)
-	runtime.KeepAlive(carg0AllocMap)
-	__v := (Jint)(__ret)
 	return __v
 }
 

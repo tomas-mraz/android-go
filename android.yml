@@ -109,8 +109,19 @@ TRANSLATOR:
       - {action: ignore, from: ^JNIEnv_ReleaseStringUTFChars$} # already included in GetStringUTFChars
       - {action: ignore, from: JNI_OnLoad}
       - {action: ignore, from: JNI_OnUnload}
+      - {action: ignore, from: JNI_CreateJavaVM}
+      - {action: ignore, from: JNI_GetCreatedJavaVMs}
+      - {action: ignore, from: JNI_GetDefaultJavaVMInitArgs}
       - {action: ignore, from: ANativeActivity_onCreate}
       - {action: ignore, from: ASensorManager_getInstance$}
+      # Functions declared in NDK headers but not exported from libandroid.so stubs
+      - {action: ignore, from: AConfiguration_setScreenRound}
+      - {action: ignore, from: ANativeWindow_setBuffersTransform}
+      - {action: ignore, from: ANativeWindow_setBuffersDataSpace}
+      - {action: ignore, from: ANativeWindow_getBuffersDataSpace}
+      - {action: ignore, from: ANativeWindow_setFrameRate$}
+      - {action: ignore, from: ANativeWindow_setFrameRateWithChangeStrategy}
+      - {action: ignore, from: ANativeWindow_tryAllocateBuffers}
     type:
       - {action: accept, from: ^J}
       - {action: accept, from: ^j}
