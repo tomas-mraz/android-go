@@ -3,6 +3,7 @@ package app
 import (
 	"fmt"
 	"log"
+	"runtime"
 
 	"github.com/tomas-mraz/android-go/android"
 )
@@ -29,6 +30,17 @@ var LogInputEvents = func(ev *android.InputEvent) {
 
 func HandleInputQueues(queueChan <-chan *android.InputQueue, onProcessed func(),
 	evHandler func(ev *android.InputEvent)) {
+
+	// ALooper is a per-thread primitive: LooperPrepare attaches the Looper to
+	// the calling thread, and LooperPollOnce only works on the same thread.
+	// Without LockOSThread the Go scheduler can move this goroutine off its
+	// starting thread between polls — the new thread has no prepared Looper,
+	// so libutils logs "ALooper_pollOnce: No looper for this thread!" on every
+	// iteration. Pin the goroutine to its starting thread for the lifetime of
+	// the process. There is no matching Unlock: HandleInputQueues is intended
+	// to run until the app exits, and letting the pinned OS thread die with
+	// the goroutine is the right semantics.
+	runtime.LockOSThread()
 
 	looper := android.LooperPrepare(android.LooperPrepareAllowNonCallbacks)
 	pending := make(chan *android.InputQueue, 1)

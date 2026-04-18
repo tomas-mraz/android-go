@@ -81,8 +81,6 @@ func init() {
 }
 
 func Main(fn func(app NativeActivity)) {
-	// runtime.LockOSThread()
-	// defer runtime.UnlockOSThread()
 	fn(defaultApp)
 }
 
